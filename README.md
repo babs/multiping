@@ -4,10 +4,15 @@
 
 ## Demo
 
-`multiping unstable-server localhost tcp://google.com:80 tcp://[::1]:22`
+Example with an `unstable-server` that flaps every 6s and a few other targets:
+
+`multiping localhost unstable-server tcp://google.com:80 tcp://[::1]:22`
 
 ![Demo01](https://raw.githubusercontent.com/babs/multiping/master/_demo/demo-001.svg)
 
+If you use a unix like shell, you can take advantage of shell's expansion for ranges like so:
+
+`multiping 192.168.0.{1..10}`
 
 ## Documentation
 
