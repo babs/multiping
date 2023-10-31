@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"regexp"
 	"runtime"
+	"strings"
 	"time"
 )
 
@@ -27,9 +28,21 @@ func (w *SystemPingWrapper) Start() {
 	w.stats.hrepr = w.host
 	w.stats.iprepr = w.ip.String()
 
-	path, err := exec.LookPath("ping")
-	if err != nil {
-		log.Fatal(err)
+	var path string
+
+	// Looks like an ipv6 ? search for ping6
+	// Some systems doesn't have ping6 because ping handle both v4 and v6
+	// so not finding ping6 is not necessarily a problem
+	if strings.Contains(w.ip.String(), ":") {
+		path, _ = exec.LookPath("ping6")
+	}
+
+	if path == "" {
+		var err error
+		path, err = exec.LookPath("ping")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	args := make([]string, 0)
