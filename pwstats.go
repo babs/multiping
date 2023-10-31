@@ -19,6 +19,7 @@ type PWStats struct {
 	has_ever_received  bool
 	startup_time       int64
 	transition_writer  *TransitionWriter
+	error_message      string
 	hrepr              string
 	iprepr             string
 }

@@ -51,7 +51,9 @@ func (d *Display) Update() {
 	for _, wrapper := range d.pwh.ping_wrappers {
 		sb.WriteString(fmt.Sprintf(d.host_format_string, wrapper.Host()))
 		stats := wrapper.CalcStats(2 * 1e9)
-		if stats.last_seen_nano > 2*1e9 {
+		if stats.error_message != "" {
+			sb.WriteString(bold_red.Sprintf("❌ %v", stats.error_message))
+		} else if stats.last_seen_nano > 2*1e9 {
 			if stats.lastrecv == 0 {
 				sb.WriteString(bold_red.Sprintf("❌ never had reply"))
 			} else {

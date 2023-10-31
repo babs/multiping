@@ -56,6 +56,7 @@ func (w *SystemPingWrapper) Start() {
 				w.stats.lastrtt_as_string = extracted[0][1] + extracted[0][2]
 			}
 		}
+		w.stats.error_message = fmt.Sprintf("%v exited code %v", w.cmd.String(), w.cmd.ProcessState.ExitCode())
 	}()
 	w.cmd.Start()
 }
