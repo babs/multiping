@@ -92,4 +92,17 @@ func usage() {
 	fmt.Print(VersionStringLong())
 	fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s:\n", os.Args[0])
 	flag.PrintDefaults()
+	fmt.Println(`  host [hosts...]
+
+Hosts can have the following form:
+- hostname or ip or ip://hostname => ping (implementation used depends on '-s' flag)
+- tcp://hostname:port or tcp://[ipv6]:port => tcp probing
+    While using ip addresses, tcp:// can take IPv4 or IPv6 (w/ brackets), tcp4:// can only take IPv4 and tcp6:// only IPv6 (w/ brackets)
+
+Hint on address family can be provided with the following form:
+- ip://hostname and tcp://hostname resolves as default
+- ip4://hostname and tcp4://hostname resolves as IPv4
+- ip6://hostname and tcp6://hostname resolves as IPv6
+
+Notes about implementation: tcp implementation between probing (S/SA/R) and full handshake depends on the platform`)
 }

@@ -27,6 +27,11 @@ Available probing means are:
 
 Pure go is the default option but for unprivileged users ([see linux notes](#linux-notes-on-pure-go-ping)), OS/system's ping command (usually available on OS with specific cap or setuid) can be used with a background spawn model with `-s` flag. Privileged mode (default when user is root or on windows) can be forcefully enabled with `-privileged`.
 
+Hint ca be given about address family resolution using `ip<family>://`, `ip://` is the default, `ip4://` to force IPv4 and `ip6://` to force IPv6, example:
+ - `google.com` is equivalent to `ip://google.com`
+ - `ip4://google.com` forces resolution of google.com as ipv4
+ - `ip6://google.com` forces resolution of google.com as ipv6
+
 ### TCP probing
 
 For tcp probing, on linux, freebsd and openbsd, S/SA/R pattern is used. This allows to probe tcp ports without really triggering an accept on the listening app. Issue is if a device in between perform syn poxing, the result might not reflect reality.
@@ -36,6 +41,10 @@ tcp probing example syntax:
 - `tcp://google.com:80`
 - `tcp://192.168.0.1:443`
 - `tcp://[::1]:22`
+
+As for `ip://`, `tcp://` can also have hint of address family:
+- `tcp4://google.com:80` forces resolution of google.com as ipv4
+- `tcp6://google.com:80` forces resolution of google.com as ipv6
 
 ### Transition logging
 
@@ -71,6 +80,6 @@ Github repository: https://github.com/babs/multiping
 
 ### libs used
 
-* https://github.com/pterm/pterm 
+* https://github.com/pterm/pterm
 * https://github.com/prometheus-community/pro-bing
 * https://github.com/tevino/tcp-shaker
