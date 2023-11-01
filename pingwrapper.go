@@ -55,9 +55,10 @@ func NewPingWrapper(host string, options Options, transition_writer *TransitionW
 		}
 	} else if *options.system {
 		return &SystemPingWrapper{
-			host:  host,
-			ip:    mustResolve(found_host, found_ip_family),
-			stats: &PWStats{transition_writer: transition_writer},
+			host:         host,
+			ip:           mustResolve(found_host, found_ip_family),
+			stats:        &PWStats{transition_writer: transition_writer},
+			ping_options: *options.system_ping_options,
 		}
 	} else {
 		return &ProbingWrapper{

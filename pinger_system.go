@@ -11,14 +11,17 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/google/shlex"
 )
 
 type SystemPingWrapper struct {
-	host    string
-	ip      *net.IPAddr
-	hstring string
-	stats   *PWStats
-	cmd     *exec.Cmd
+	host         string
+	ip           *net.IPAddr
+	hstring      string
+	stats        *PWStats
+	cmd          *exec.Cmd
+	ping_options string
 }
 
 var time_extractor = regexp.MustCompile(`time[=<]([\d\.]+) *(.?s)`)
@@ -45,7 +48,10 @@ func (w *SystemPingWrapper) Start() {
 		}
 	}
 
-	args := make([]string, 0)
+	args, err := shlex.Split(w.ping_options)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	if runtime.GOOS == "windows" {
 		args = append(args, "-t")

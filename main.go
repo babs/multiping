@@ -14,17 +14,19 @@ var BuildTimestamp = "1970-01-01T00:00:00"
 var Builder = "go version go1.xx.y os/platform"
 
 type Options struct {
-	quiet      *bool
-	privileged *bool
-	system     *bool
-	log        *string
-	update     *bool
+	quiet               *bool
+	privileged          *bool
+	system              *bool
+	log                 *string
+	update              *bool
+	system_ping_options *string
 }
 
 func main() {
 	options := Options{}
-	options.privileged = flag.Bool("privileged", false, "switch to privileged mode (default if run as root or on windows; ineffective with -s)")
+	options.privileged = flag.Bool("privileged", false, "switch to privileged mode (default if run as root or on windows; ineffective with '-s')")
 	options.system = flag.Bool("s", false, "uses system's ping")
+	options.system_ping_options = flag.String("ping-options", "", "quoted options to provide to system's ping (ex: \"-Q 2\"), implies '-s', refer to system's ping man page")
 	options.quiet = flag.Bool("q", false, "quiet mode, disable live update")
 	options.log = flag.String("log", "", "transition log `filename`")
 	options.update = flag.Bool("update", false, "check and update to latest version (source github)")
@@ -40,6 +42,10 @@ func main() {
 	if len(hosts) == 0 {
 		fmt.Println("no host provided")
 		return
+	}
+
+	if len(*options.system_ping_options) > 0 {
+		*options.system = true
 	}
 
 	quitSig := make(chan bool)

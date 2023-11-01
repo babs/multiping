@@ -5,6 +5,7 @@ go 1.21
 toolchain go1.21.3
 
 require (
+	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
 	github.com/minio/selfupdate v0.6.0
 	github.com/prometheus-community/pro-bing v0.3.0
 	github.com/pterm/pterm v0.12.69
