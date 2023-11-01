@@ -27,7 +27,6 @@ func (w *ProbingWrapper) Start() {
 		log.Fatalf("pinger initialization failed %s, %s", w.host, err)
 	}
 
-	w.pinger.SetDoNotFragment(true)
 	w.pinger.RecordRtts = false
 	w.pinger.OnSend = w.onSend
 	// pinger.OnSend = pingwrapper.OnRecv
