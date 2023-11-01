@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-var Version = "0.0.0"
+var Version = "v0.0.0"
 var CommitHash = "dev"
 var BuildTimestamp = "1970-01-01T00:00:00"
 var Builder = "go version go1.xx.y os/platform"
@@ -81,11 +81,11 @@ func main() {
 }
 
 func VersionString() string {
-	return fmt.Sprintf("multiping v%s-%v\n", Version, CommitHash)
+	return fmt.Sprintf("multiping %v-%v\n", Version, CommitHash)
 }
 
 func VersionStringLong() string {
-	return fmt.Sprintf("multiping v%s-%v (build on %v using %v)\nhttps://github.com/babs/multiping\n\n", Version, CommitHash, BuildTimestamp, Builder)
+	return fmt.Sprintf("multiping %v-%v (build on %v using %v)\nhttps://github.com/babs/multiping\n\n", Version, CommitHash, BuildTimestamp, Builder)
 }
 
 func usage() {
