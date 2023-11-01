@@ -62,6 +62,10 @@ Log format is pretty self explanatory:
 
 `-q` disable the refreshing output, might be useful in conjunction with `-log`.
 
+### Self update
+
+Starting v1.2.0, `multiping` can self-update against github releases with `-update` flag
+
 ## Linux notes on pure go ping
 
 If run unprivileged, you might need to allow groups to perform "unprivileged" ping via UDP with the following sysctl:
@@ -83,3 +87,6 @@ Github repository: https://github.com/babs/multiping
 * https://github.com/pterm/pterm
 * https://github.com/prometheus-community/pro-bing
 * https://github.com/tevino/tcp-shaker
+* https://github.com/valyala/fastjson
+* https://github.com/minio/selfupdate
+* https://github.com/ulikunitz/xz

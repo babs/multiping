@@ -33,7 +33,7 @@ echo  "   Builder=${BUILDER}"
 
 echo "[*] go builds:"
 #set -x
-for DIST in {linux,openbsd,windows,freebsd}/{amd64,arm,arm64,386} darwin/{amd64,arm64}; do
+for DIST in {linux,openbsd,freebsd,windows}/{amd64,arm,arm64,386} darwin/{amd64,arm64}; do
 #for DIST in linux/{amd64,386}; do
   GOOS=${DIST%/*}
   GOARCH=${DIST#*/}
@@ -46,6 +46,7 @@ for DIST in {linux,openbsd,windows,freebsd}/{amd64,arm,arm64,386} darwin/{amd64,
   if [ -z "$NOCOMPRESS" ]; then
     echo "[-]    - compress"
     if [ "$GOOS" = "windows" ]; then
+      xz --keep dist/${TARGET}${SUFFIX}
       (cd dist; zip -qm9 ${TARGET}.zip ${TARGET}${SUFFIX})
     else
       xz dist/${TARGET}

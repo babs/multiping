@@ -18,6 +18,7 @@ type Options struct {
 	privileged *bool
 	system     *bool
 	log        *string
+	update     *bool
 }
 
 func main() {
@@ -26,9 +27,15 @@ func main() {
 	options.system = flag.Bool("s", false, "uses system's ping")
 	options.quiet = flag.Bool("q", false, "quiet mode, disable live update")
 	options.log = flag.String("log", "", "transition log `filename`")
+	options.update = flag.Bool("update", false, "check and update to latest version (source github)")
 	flag.Usage = usage
 	flag.Parse()
 	hosts := flag.Args()
+
+	if *options.update {
+		selfUpdate()
+		return
+	}
 
 	if len(hosts) == 0 {
 		fmt.Println("no host provided")
