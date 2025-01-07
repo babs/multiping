@@ -65,6 +65,7 @@ func NewPingWrapper(host string, options Options, transition_writer *TransitionW
 			host:       host,
 			ip:         mustResolve(found_host, found_ip_family),
 			privileged: *options.privileged,
+			size:       *options.size,
 			stats:      &PWStats{transition_writer: transition_writer},
 		}
 	}

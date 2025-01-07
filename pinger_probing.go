@@ -16,6 +16,7 @@ type ProbingWrapper struct {
 	ip         *net.IPAddr
 	hstring    string
 	pinger     *probing.Pinger
+	size       int
 	stats      *PWStats
 	privileged bool
 }
@@ -32,6 +33,8 @@ func (w *ProbingWrapper) Start() {
 	// pinger.OnSend = pingwrapper.OnRecv
 	w.pinger.OnRecv = w.onRecv
 	w.pinger.OnDuplicateRecv = w.onDuplicateRecv
+	w.pinger.Size = w.size
+	w.pinger.SetDoNotFragment(true)
 
 	if runtime.GOOS == "windows" || os.Getuid() == 0 {
 		w.pinger.SetPrivileged(true)

@@ -16,6 +16,7 @@ var Builder = "go version go1.xx.y os/platform"
 type Options struct {
 	quiet               *bool
 	privileged          *bool
+	size                *int
 	system              *bool
 	log                 *string
 	update              *bool
@@ -25,6 +26,7 @@ type Options struct {
 func main() {
 	options := Options{}
 	options.privileged = flag.Bool("privileged", false, "switch to privileged mode (default if run as root or on windows; ineffective with '-s')")
+	options.size = flag.Int("size", 24, "packet size")
 	options.system = flag.Bool("s", false, "uses system's ping")
 	options.system_ping_options = flag.String("ping-options", "", "quoted options to provide to system's ping (ex: \"-Q 2\"), implies '-s', refer to system's ping man page")
 	options.quiet = flag.Bool("q", false, "quiet mode, disable live update")
