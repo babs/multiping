@@ -1,5 +1,8 @@
 # multiping
 
+[![GitHub](https://img.shields.io/github/license/babs/multiping)](https://github.com/babs/multiping/blob/master/LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/babs/multiping)](https://github.com/babs/multiping/releases/latest)
+
 `multiping` is a cli tool to monitor several targets at once using pings or tcp probing with optional logging of transition between states in a file.
 
 ## Demo

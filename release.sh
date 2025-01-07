@@ -43,6 +43,7 @@ for DIST in {linux,openbsd,freebsd,windows}/{amd64,arm,arm64,386} darwin/{amd64,
   [ "$GOOS" = "windows" ] && SUFFIX=".exe"
   TARGET=${BINBASE}-${GOOS}-${GOARCH}
   env CGO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -ldflags="${LDFLAGS[*]}" -mod vendor -o dist/${TARGET}${SUFFIX}
+  (cd dist; sha256sum ${TARGET}${SUFFIX}) | tee -a ${BINBASE}.sha256sum
   if [ -z "$NOCOMPRESS" ]; then
     echo "[-]    - compress"
     if [ "$GOOS" = "windows" ]; then
@@ -55,7 +56,7 @@ for DIST in {linux,openbsd,freebsd,windows}/{amd64,arm,arm64,386} darwin/{amd64,
 done
 
 echo "[*] sha256sum"
-(cd dist; sha256sum *) | tee ${BINBASE}.sha256sum
+(cd dist; sha256sum *) | tee -a ${BINBASE}.sha256sum
 mv ${BINBASE}.sha256sum dist/
 
 #echo "[*] pack"
