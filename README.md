@@ -25,7 +25,9 @@ Available probing means are:
 
 ### ping
 
-Pure go is the default option but for unprivileged users ([see linux notes](#linux-notes-on-pure-go-ping)), OS/system's ping command (usually available on OS with specific cap or setuid) can be used with a background spawn model with `-s` flag. Privileged mode (default when user is root or on windows) can be forcefully enabled with `-privileged`.
+Pure Go is the default option but for unprivileged users ([see linux notes](#linux-notes-on-pure-go-ping)), OS/system's ping command (usually available on OS with specific cap or setuid) can be used with a background spawn model with `-s` flag. Privileged mode (default when user is root or on windows) can be forcefully enabled with `-privileged`.
+
+On pure Go implementation, ICMP packet size can be specified using `-size` option. Given size doesn't account for the 28 bytes header (note for usual limits: 1472 or 8972). This has no effect on system's ping, refer to system's manual and use `-ping-options`.
 
 Hint ca be given about address family resolution using `ip<family>://`, `ip://` is the default, `ip4://` to force IPv4 and `ip6://` to force IPv6, example:
  - `google.com` is equivalent to `ip://google.com`
