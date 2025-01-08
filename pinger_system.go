@@ -25,6 +25,7 @@ type SystemPingWrapper struct {
 }
 
 var time_extractor = regexp.MustCompile(`time[=<]([\d\.]+) *(.?s)`)
+var time_extractor_non_local = regexp.MustCompile(`[=<]([\d\.]+) *(.?s)`)
 
 func (w *SystemPingWrapper) Start() {
 	w.hstring = fmt.Sprintf("%s (%s)", w.host, w.ip.String())
@@ -53,12 +54,16 @@ func (w *SystemPingWrapper) Start() {
 		log.Fatal(err)
 	}
 
+	extractor := time_extractor
+
 	if runtime.GOOS == "windows" {
 		args = append(args, "-t")
+		extractor = time_extractor_non_local
 	}
 	args = append(args, w.ip.String())
 
 	w.cmd = exec.Command(path, args...)
+	w.cmd.Env = append(w.cmd.Environ(), "LANG=C")
 
 	w.stats = &PWStats{
 		state: true,
@@ -69,7 +74,7 @@ func (w *SystemPingWrapper) Start() {
 		// Read line by line and process it
 		for scanner.Scan() {
 			line := scanner.Text()
-			extracted := time_extractor.FindAllStringSubmatch(line, -1)
+			extracted := extractor.FindAllStringSubmatch(line, -1)
 			if len(extracted) > 0 {
 				w.stats.lastrecv = time.Now().UnixNano()
 				w.stats.lastrtt_as_string = extracted[0][1] + extracted[0][2]
