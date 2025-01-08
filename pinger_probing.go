@@ -34,7 +34,9 @@ func (w *ProbingWrapper) Start() {
 	w.pinger.OnRecv = w.onRecv
 	w.pinger.OnDuplicateRecv = w.onDuplicateRecv
 	w.pinger.Size = w.size
-	w.pinger.SetDoNotFragment(true)
+	if runtime.GOOS == "linux" {
+		w.pinger.SetDoNotFragment(true)
+	}
 
 	if runtime.GOOS == "windows" || os.Getuid() == 0 {
 		w.pinger.SetPrivileged(true)
