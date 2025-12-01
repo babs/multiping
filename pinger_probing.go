@@ -28,6 +28,8 @@ func (w *ProbingWrapper) Start() {
 		log.Fatalf("pinger initialization failed %s, %s", w.host, err)
 	}
 
+	w.pinger.SetLogger(probing.NoopLogger{}) // Silence all logging from the library
+
 	w.pinger.RecordRtts = false
 	w.pinger.OnSend = w.onSend
 	// pinger.OnSend = pingwrapper.OnRecv
