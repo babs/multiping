@@ -33,7 +33,7 @@ echo  "   Builder=${BUILDER}"
 
 echo "[*] go builds:"
 #set -x
-for DIST in {linux,openbsd,freebsd,windows}/{amd64,arm,arm64,386} darwin/{amd64,arm64}; do
+for DIST in {linux,openbsd,freebsd}/{amd64,arm,arm64,386} windows/{amd64,arm64,386} darwin/{amd64,arm64}; do
 #for DIST in linux/{amd64,386}; do
   GOOS=${DIST%/*}
   GOARCH=${DIST#*/}

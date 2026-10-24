@@ -1,8 +1,8 @@
 module github.com/babs/multiping
 
-go 1.21
+go 1.26
 
-toolchain go1.21.3
+toolchain go1.27.3
 
 require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
@@ -10,7 +10,7 @@ require (
 	github.com/prometheus-community/pro-bing v0.3.0
 	github.com/pterm/pterm v0.12.69
 	github.com/tevino/tcp-shaker v0.0.0-20230517040324-fab7e241418c
-	github.com/ulikunitz/xz v0.5.11
+	github.com/ulikunitz/xz v0.5.15
 	github.com/valyala/fastjson v1.6.4
 	golang.org/x/mod v0.13.0
 )
